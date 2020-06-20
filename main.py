@@ -2,24 +2,43 @@ import eel
 import Snowboy.snowboydecoder as snowboydecoder
 from threading import Thread
 from time import sleep
+from reminders import start_schedule
+from utils import *
+from brain import get_response
 
 
 eel.init('web')
-detector = snowboydecoder.HotwordDetector("OK Google.pmdl", sensitivity=0.5, audio_gain=1)
+detector = snowboydecoder.HotwordDetector("smart mirror.pmdl", sensitivity=0.5, audio_gain=1)
 
 
-def detected_callback():
-    print("hotword detected")
-    # TODO: add assistant routine
-    
-
+@eel.expose
+def assistant_routine():
+    """
+    Triggered when hotward detected.
+    Driver routine for assistant.
+    :return:
+        None
+    """
+    eel.updateAssistant(0)
+    cmd = get_command()
+    ans = get_response(cmd)
+    log(cmd, ans)
+    if ans == 'ERROR':
+        eel.updateAssistant(1, 'Sorry, something went wrong!', ' ')
+        return
+    t = Thread(target=speak, args=[ans], daemon=True)
+    t.start()
+    sleep(3)
+    eel.updateAssistant(1, cmd, ans)
+   
+   
 def init_eel():
     """
     Initialization of electron window
     :return:
         None
     """
-    eel.start('index.html', size=(500, 500))
+    eel.start('index.html', size=(700, 500))
 
 
 def init_snowboy():
@@ -28,11 +47,13 @@ def init_snowboy():
     :return:
         None
     """
-    detector.start(detected_callback)
-
+    detector.start(assistant_routine)
     
+# starts here     
 thread_eel = Thread(target=init_eel)
 thread_snowboy = Thread(target=init_snowboy)
 
 thread_eel.start()
 thread_snowboy.start()
+start_schedule()
+
