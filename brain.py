@@ -12,8 +12,8 @@ from twilio.rest import Client, TwilioException
 
 
 name = 'Vishwajeet'
-account_sid = 'AC30ba03517fdafed69b6135d3f5d4887d'
-auth_token = 'b4a16875fc567d5ec976c788637c587f'
+account_sid = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'	# twilio Account SID 
+auth_token = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'	# twilio Auth Token
 client = Client(account_sid, auth_token)
 
 
@@ -26,7 +26,7 @@ def get_ans(ask):
         answer --> str
     """
     try:
-        app_id = 'GG4W48-JKAL2YJQUL'
+        app_id = 'XXXXXX-XXXXXXXXX'	# wolframalpha app id
         client = wolframalpha.Client(app_id)
 
         res = client.query(ask)
@@ -51,8 +51,8 @@ def send_email(email, message):
         flag --> int
     """
     msg = MIMEMultipart()
-    password = "7385404835"
-    msg['From'] = 'smartmirror.dot@gmail.com'
+    password = "XXXXXXXXXXXXXXX"	# mail-id password 
+    msg['From'] = 'smartmirror.dot@gmail.com'	# mail-id
     msg['To'] = email
     msg['Subject'] = 'Vishwajeet via Smart Mirror'
 

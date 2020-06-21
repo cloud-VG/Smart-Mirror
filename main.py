@@ -38,7 +38,7 @@ def init_eel():
     :return:
         None
     """
-    eel.start('index.html', size=(700, 500))
+    eel.start('index.html', size=(768, 1366)) #Changed by Avinash adjusted for vertically Adjust If Im Wrrong
 
 
 def init_snowboy():
