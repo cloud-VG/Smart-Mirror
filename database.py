@@ -1,6 +1,6 @@
 from firebase import firebase
 
-fb = firebase.FirebaseApplication("https://smartmirror-bc59f.firebaseio.com", None)
+fb = firebase.FirebaseApplication("xxx database url xxx", None)
 
 
 def get_reminders():
